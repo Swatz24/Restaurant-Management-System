@@ -1,0 +1,12 @@
+Bread slices,3800
+Water,1900
+Lettuce,1900
+Oil,1896
+Potatoes,1894
+Ranch,1900
+Coke,1900
+Chicken tenders,1895
+Cheese,1900
+Tomato,1900
+Cucumber,1900
+sugar,30
