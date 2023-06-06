@@ -52,30 +52,15 @@ public class Menu {
         }
     }
 
-   public void addItem() {
-        System.out.println("Enter the item details:");
-        System.out.print("Name: ");
-        String name = scanner.nextLine();
-        System.out.print("Description: ");
-        String description = scanner.nextLine();
-        System.out.print("Preparation Time: ");
-        String prepTime = scanner.nextLine();
-        System.out.print("Price: ");
-        double price = scanner.nextDouble();
-        scanner.nextLine(); // Consume newline character
-        System.out.print("Ingredients (comma-separated): ");
-        String ingredientsString = scanner.nextLine();
-        List<String> ingredients = Arrays.asList(ingredientsString.split(","));
+   public void addItem( MenuItem menuItem) {
 
-        MenuItem menuItem = new MenuItem(name, description, prepTime, price, ingredients);
         menuItems.add(menuItem);
 
         System.out.println("Menu item added successfully!");
     }
 
-    public void removeItem() {
-        System.out.print("Enter the name of the item to remove: ");
-        String itemName = scanner.nextLine();
+    public void removeItem(String itemName) {
+
 
         boolean found = false;
         Iterator<MenuItem> iterator = menuItems.iterator();
@@ -117,8 +102,8 @@ public class Menu {
                 }
 
                 System.out.print("New preparation time (" + menuItem.getPrepTime() + "): ");
-                String prepTime = scanner.nextLine();
-                if (!prepTime.isEmpty()) {
+                int prepTime = Integer.parseInt(scanner.nextLine());
+                if (prepTime != 0) {
                     menuItem.setPrepTime(prepTime);
                 }
 

@@ -59,7 +59,7 @@ public class RestaurantMgmtSystem {
                 // Manager menu options
                 System.out.println("Welcome, Manager!");
                 Menu menuService = new Menu("C:\\CTAC\\RestaurantMgmtSystem\\untitled\\src\\main\\java\\example\\menu.txt");
-                menuService.loadMenuItems();
+                menuService.loadMenu();
 
                 int choice;
                 do {
@@ -77,7 +77,7 @@ public class RestaurantMgmtSystem {
 
                     switch (choice) {
                         case 1:
-                           menuService.getMenuItems();
+                           menuService.displayMenu();
                             break;
                         case 2:
                             System.out.print("Enter item name: ");
@@ -93,13 +93,13 @@ public class RestaurantMgmtSystem {
                             String ingredientInput = scanner.nextLine();
                             List<String> ingredients = Arrays.asList(ingredientInput.split(","));
                             MenuItem newItem = new MenuItem(itemName, itemDescription, preparationTime, itemPrice, ingredients);
-                            menuService.addMenuItem(newItem);
+                            menuService.addItem(newItem);
 
                             break;
                         case 3:
                             System.out.print("Enter the item name to remove: ");
                             String itemToRemove = scanner.nextLine();
-                            //menuService.removeMenuItem(itemToRemove);
+                            menuService.removeItem(itemToRemove);
                             break;
                         case 4:
                            // SalesReportService salesReportService = new SalesReportService();

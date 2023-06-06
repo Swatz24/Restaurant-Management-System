@@ -1,12 +1,12 @@
-Bread slices,3800
-Water,1900
-Lettuce,1900
-Oil,1896
-Potatoes,1894
-Ranch,1900
-Coke,1900
-Chicken tenders,1895
-Cheese,1900
-Tomato,1900
-Cucumber,1900
+Bread slices,4200
+Water,2100
+Lettuce,2100
+Oil,2096
+Potatoes,2094
+Ranch,2100
+Coke,2100
+Chicken tenders,2095
+Cheese,2100
+Tomato,2100
+Cucumber,2100
 sugar,30

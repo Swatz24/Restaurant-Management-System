@@ -6,11 +6,11 @@ import java.util.List;
 class MenuItem {
     private String name;
     private String description;
-    private String prepTime;
+    private int prepTime;
     private double price;
     private List<String> ingredients;
 
-    public MenuItem(String name, String description, String prepTime, double price, List<String> ingredients) {
+    public MenuItem(String name, String description, int prepTime, double price, List<String> ingredients) {
         this.name = name;
         this.description = description;
         this.prepTime = prepTime;
@@ -34,11 +34,11 @@ class MenuItem {
         this.description = description;
     }
 
-    public String getPrepTime() {
+    public int getPrepTime() {
         return prepTime;
     }
 
-    public void setPrepTime(String prepTime) {
+    public void setPrepTime(int prepTime) {
         this.prepTime = prepTime;
     }
 
@@ -83,7 +83,7 @@ class MenuItem {
 
         String name = parts[0];
         String description = parts[1];
-        String prepTime = parts[2];
+        int prepTime = Integer.parseInt(parts[2]);
         double price = Double.parseDouble(parts[3]);
         List<String> ingredients = Arrays.asList(parts[4].split(","));
 
