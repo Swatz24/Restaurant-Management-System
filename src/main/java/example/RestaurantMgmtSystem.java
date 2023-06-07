@@ -75,7 +75,7 @@ public class RestaurantMgmtSystem {
             UserAuthentication userAuth = new UserAuthentication();
             String role = userAuth.authenticateUser(username, employee, password, pw);
 //        System.out.println("Role: " + role);
-//        System.out.println("pwd" + pw);
+        System.out.println("pwd" + pw);
             if (role != null) {
 
                 if (role.equalsIgnoreCase("MANAGER")) {
@@ -166,11 +166,15 @@ public class RestaurantMgmtSystem {
                         System.out.print("Enter your choice: ");
                         choice = scanner.nextInt();
                         scanner.nextLine(); // Consume the newline character
+                        OrderService orderService = new OrderService();
 
                         switch (choice) {
                             case 1:
-                                // Take order
-                                // ...
+                                System.out.println("List of tables occupied: ");
+                                tableManager.displayOccupiedTables();
+
+//                                orderService.takeOrder(tableManager, scanner);
+
                                 break;
                             case 2:
                                 // Assign table

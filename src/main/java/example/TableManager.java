@@ -73,5 +73,14 @@ public class TableManager {
         }
         return availableTables;
     }
+
+    public void displayOccupiedTables() {
+        System.out.println("Occupied Tables:");
+        for (Table table : tables) {
+            if (table.getStatus().equals("Occupied")) {
+                System.out.println("Table ID: " + table.getTableId() + ", Table Size: " + table.getTableSize());
+            }
+        }
+    }
 }
 

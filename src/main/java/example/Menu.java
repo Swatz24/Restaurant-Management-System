@@ -173,4 +173,14 @@ public class Menu {
             }
         }
     }
+
+    public MenuItem getMenuItemByName(String itemName) {
+        for (MenuItem item : menuItems) {
+            if (item.getName().equalsIgnoreCase(itemName)) {
+                return item;
+            }
+        }
+        return null; // Item not found
+    }
+
 }

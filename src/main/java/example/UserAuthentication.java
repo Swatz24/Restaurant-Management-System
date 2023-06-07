@@ -21,13 +21,9 @@ public class UserAuthentication {
             }
         }
         return "unknown";
+
     }
-
-
-
-
-
-
 }
+
 
 
