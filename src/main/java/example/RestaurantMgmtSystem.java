@@ -9,14 +9,16 @@ public class RestaurantMgmtSystem {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         boolean exitProgram = false;
-        // Create object for InventoryService class and define the filePath where you want the file to be saved.
 
+        // Create object for InventoryService class and define the filePath where you want the file to be saved.
         InventoryService inventoryService = new InventoryService("C:\\CTAC\\RestaurantMgmtSystem\\untitled\\src\\main\\java\\example\\inventory.txt");
+//        System.out.println( inventoryService.isIngredientAvailable("sugar"));
+//        System.out.println(  inventoryService.isIngredientAvailable("Potatoes"));
+        // MenuService
+        Menu menuService = new Menu();
 
         // Table Manager
         TableManager tableManager = new TableManager();
-        Menu menuService = new Menu();
-
         // Add tables
         Table table1 = new Table(1, 2, "Available");
         Table table2 = new Table(2, 2, "Available");
@@ -169,12 +171,15 @@ public class RestaurantMgmtSystem {
                         choice = scanner.nextInt();
                         scanner.nextLine(); // Consume the newline character
                         Menu menu = new Menu();
-                        OrderService orderService = new OrderService(menuService);
+                        OrderService orderService = new OrderService(menuService, inventoryService);
+
 
                         switch (choice) {
                             case 1:
                                 System.out.println("List of tables occupied: ");
                                 tableManager.displayOccupiedTables();
+
+
                                 orderService.takeOrder(tableManager, scanner);
 
 //                                orderService.takeOrder(tableManager, scanner);

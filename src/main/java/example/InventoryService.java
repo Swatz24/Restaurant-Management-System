@@ -90,10 +90,11 @@ public class InventoryService {
                 if (parts.length == 2) {
                     String ingredient = parts[0].trim();
                     int quantity = Integer.parseInt(parts[1].trim());
-                    System.out.println(ingredient);
+//                    System.out.println(ingredient);
                     inventory.put(ingredient, new InventoryItem(ingredient, quantity));
-                    
+
                     ingredients.put(ingredient, quantity);
+
                 }
             }
         } catch (IOException e) {
@@ -102,16 +103,14 @@ public class InventoryService {
     }
 
 
-    public boolean isIngredientAvailable(String ingredient) {
-        loadInventory();
-        System.out.println(inventory.get(ingredient));
-        if(inventory.isEmpty()){
-            return false;
+    public boolean isIngredientAvailable(String ingredient, int quantity) {
+        InventoryItem item = inventory.get(ingredient);
+        if (item != null && item.getQuantity() > quantity) {
+            return true;
         }
-
-
-        return inventory.containsKey(ingredient) ;
+        return false;
     }
+
 
 
 }

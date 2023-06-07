@@ -5,13 +5,16 @@ import java.util.List;
 import java.util.Scanner;
 
 public class OrderService {
+    private final InventoryService inventoryService;
     private List<Order> orders;
     private Menu menu;
 
-    public OrderService(Menu menu) {
+    public OrderService(Menu menu, InventoryService inventoryService) {
         this.orders = new ArrayList<>();
         this.menu = menu;
+        this.inventoryService = inventoryService; // Add this line
     }
+
 
     public void takeOrder(TableManager tableManager, Scanner scanner) {
         // Display occupied tables
@@ -52,29 +55,36 @@ public class OrderService {
 
                     List<String> ingredientsNeeded =   menuItem.getIngredients();
 
+//                    System.out.println(ingredientsNeeded.size());
+//
+//                    System.out.println(inventoryService.isIngredientAvailable(ingredientsNeeded.get(0)));
 
-                    if (menuItem.isAvailable()) {
-                        System.out.println("Here");
-                        // Check if the required ingredients are available in the inventory
-                        boolean ingredientsAvailable = checkIngredientsAvailability(menuItem, quantity);
-                        if (ingredientsAvailable) {
+                    boolean allIngredientsAvailable = true;
+
+                    for (String ingredient : ingredientsNeeded) {
+                        if (!inventoryService.isIngredientAvailable(ingredient, quantity)) {
+                            allIngredientsAvailable = false;
+                            break;
+                        }
+                    }
+
+
+                        if (allIngredientsAvailable) {
                             // Add the item to the order
-                            System.out.println("Here here");
                             OrderItem orderItem = new OrderItem(menuItem.getName(), quantity);
                             order.addItem(orderItem);
                             System.out.println("Item added to the order.");
-
                             // Update the inventory
-                            updateInventory(menuItem, quantity);
+                            for (String ingredient : ingredientsNeeded) {
+                                inventoryService.useIngredient(ingredient, quantity);
+                            }
                         } else {
                             System.out.println("Insufficient ingredients to prepare the item.");
                         }
                     } else {
                         System.out.println("Item is not available in the menu.");
                     }
-                } else {
-                    System.out.println("Invalid menu item name.");
-                }
+
 
                 // Ask the user if they want to add more items to the order
                 System.out.print("Add more items to the order? (y/n): ");
@@ -98,17 +108,6 @@ public class OrderService {
         } else {
             System.out.println("Invalid table ID or the table is not occupied.");
         }
-    }
-
-    private boolean checkIngredientsAvailability(MenuItem menuItem, int quantity) {
-        // Check if the required ingredients are available in the inventory
-        // You can implement your logic here
-        return true; // Placeholder logic, assuming ingredients are always available
-    }
-
-    private void updateInventory(MenuItem menuItem, int quantity) {
-        // Update the inventory based on the menu item and quantity
-        // You can implement your logic here
     }
 
     private double calculateTotalPrice(Order order) {

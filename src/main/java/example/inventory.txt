@@ -1,5 +1,5 @@
 Bread slices,50
-Water,25
+Water,15
 Potatoes,24
 Coke,25
 Chicken tenders,24
