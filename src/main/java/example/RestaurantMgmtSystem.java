@@ -13,21 +13,7 @@ public class RestaurantMgmtSystem {
         userAuth.registerUser("staff", "staffpassword", UserRole.STAFF);
 
         // Add inventory
-
-        InventoryService inventoryService = new InventoryService("C:\\CTAC\\RestaurantMgmtSystem\\untitled\\src\\main\\java\\example\\inventory.txt");
-
-        // Adding items to the inventory
-        inventoryService.addIngredient("Potatoes", 100);
-        inventoryService.addIngredient("Chicken tenders", 100);
-        inventoryService.addIngredient("Oil", 100);
-        inventoryService.addIngredient("Bread slices", 200);
-        inventoryService.addIngredient("Cheese", 100);
-        inventoryService.addIngredient("Lettuce", 100);
-        inventoryService.addIngredient("Cucumber", 100);
-        inventoryService.addIngredient("Ranch", 100);
-        inventoryService.addIngredient("Tomato", 100);
-        inventoryService.addIngredient("Water", 100);
-        inventoryService.addIngredient("Coke", 100);
+        InventoryService inventoryService = new InventoryService("/Users/minhsmair/TestingRestaurant/TestingRestaurant/src/main/java/example/inventory.txt");
 
         // Table Manager
         TableManager tableManager = new TableManager();
@@ -58,7 +44,7 @@ public class RestaurantMgmtSystem {
             if (role == UserRole.MANAGER) {
                 // Manager menu options
                 System.out.println("Welcome, Manager!");
-                Menu menuService = new Menu("C:\\CTAC\\RestaurantMgmtSystem\\untitled\\src\\main\\java\\example\\menu.txt");
+                Menu menuService = new Menu("/Users/minhsmair/TestingRestaurant/TestingRestaurant/src/main/java/example/menu.txt");
                 menuService.loadMenu();
 
                 int choice;
@@ -67,9 +53,10 @@ public class RestaurantMgmtSystem {
                     System.out.println("1. View Menu");
                     System.out.println("2. Add Menu Item");
                     System.out.println("3. Remove Menu Item");
-                    System.out.println("4. Generate Sales Report");
-                    System.out.println("5. Check Inventory Status");
-                    System.out.println("6. Add inventory ");
+                    System.out.println("4. Edit Menu Item");
+                    System.out.println("5. Generate Sales Report");
+                    System.out.println("6. Check Inventory Status");
+                    System.out.println("7. Add inventory ");
                     System.out.println("0. Exit");
                     System.out.print("Enter your choice: ");
                     choice = scanner.nextInt();
@@ -80,36 +67,25 @@ public class RestaurantMgmtSystem {
                            menuService.displayMenu();
                             break;
                         case 2:
-                            System.out.print("Enter item name: ");
-                            String itemName = scanner.nextLine();
-                            System.out.print("Enter item description: ");
-                            String itemDescription = scanner.nextLine();
-                            System.out.print("Enter preparation time: ");
-                            int preparationTime = scanner.nextInt();
-                            System.out.print("Enter item price: ");
-                            double itemPrice = scanner.nextDouble();
-                            scanner.nextLine(); // Consume the newline character
-                            System.out.print("Enter ingredients (comma-separated): ");
-                            String ingredientInput = scanner.nextLine();
-                            List<String> ingredients = Arrays.asList(ingredientInput.split(","));
-                            MenuItem newItem = new MenuItem(itemName, itemDescription, preparationTime, itemPrice, ingredients);
-                            menuService.addItem(newItem);
-
+                            menuService.addItem();
+                            menuService.saveMenu();
                             break;
                         case 3:
-                            System.out.print("Enter the item name to remove: ");
-                            String itemToRemove = scanner.nextLine();
-                            menuService.removeItem(itemToRemove);
+                            menuService.removeItem();
+                            menuService.saveMenu();
                             break;
                         case 4:
-                           // SalesReportService salesReportService = new SalesReportService();
-                            //salesReportService.generateSalesReport();
+                            menuService.editItem();
+                            menuService.saveMenu();
                             break;
                         case 5:
-
-                            inventoryService.checkInventoryStatus();
+                            // SalesReportService salesReportService = new SalesReportService();
+                            //salesReportService.generateSalesReport();
 
                         case 6:
+                            inventoryService.checkInventoryStatus();
+                            break;
+                        case 7:
                             System.out.println("Please enter the ingredient name to be added: ");
                             String name = scanner.nextLine();
                             System.out.println("Please enter the number of units you are adding: ");

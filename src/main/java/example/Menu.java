@@ -20,7 +20,8 @@ public class Menu {
             if (file.exists()) {
                 BufferedReader reader = new BufferedReader(new FileReader(file));
 
-                List<MenuItem> menuItems = new ArrayList<>();
+                menuItems.clear(); // Clear the existing menu items
+
                 String line;
                 while ((line = reader.readLine()) != null) {
                     MenuItem menuItem = MenuItem.fromStringWithDelimiters(line);
@@ -52,15 +53,30 @@ public class Menu {
         }
     }
 
-   public void addItem( MenuItem menuItem) {
+   public void addItem() {
+       System.out.println("Enter the item details:");
+       System.out.print("Name: ");
+       String name = scanner.nextLine();
+       System.out.print("Description: ");
+       String description = scanner.nextLine();
+       System.out.print("Preparation Time: ");
+       int prepTime = Integer.parseInt(scanner.nextLine());
+       System.out.print("Price: ");
+       double price = scanner.nextDouble();
+       scanner.nextLine(); // Consume newline character
+       System.out.print("Ingredients (comma-separated): ");
+       String ingredientsString = scanner.nextLine();
+       List<String> ingredients = Arrays.asList(ingredientsString.split(","));
 
-        menuItems.add(menuItem);
+       MenuItem menuItem = new MenuItem(name, description, prepTime, price, ingredients);
+       menuItems.add(menuItem);
 
-        System.out.println("Menu item added successfully!");
+       System.out.println("Menu item added successfully!");
     }
 
-    public void removeItem(String itemName) {
-
+    public void removeItem() {
+        System.out.print("Enter the name of the item to remove: ");
+        String itemName = scanner.nextLine();
 
         boolean found = false;
         Iterator<MenuItem> iterator = menuItems.iterator();
@@ -102,16 +118,25 @@ public class Menu {
                 }
 
                 System.out.print("New preparation time (" + menuItem.getPrepTime() + "): ");
-                int prepTime = Integer.parseInt(scanner.nextLine());
-                if (prepTime != 0) {
-                    menuItem.setPrepTime(prepTime);
+                String prepTimeStr = scanner.nextLine();
+                if (!prepTimeStr.isEmpty()) {
+                    try {
+                        int prepTime = Integer.parseInt(prepTimeStr);
+                        menuItem.setPrepTime(prepTime);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid input for preparation time. Keeping the current value.");
+                    }
                 }
 
                 System.out.print("New price (" + menuItem.getPrice() + "): ");
                 String priceStr = scanner.nextLine();
                 if (!priceStr.isEmpty()) {
-                    double price = Double.parseDouble(priceStr);
-                    menuItem.setPrice(price);
+                    try {
+                        double price = Double.parseDouble(priceStr);
+                        menuItem.setPrice(price);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid input for price. Keeping the current value.");
+                    }
                 }
 
                 System.out.print("New ingredients (" + String.join(", ", menuItem.getIngredients()) + "): ");
@@ -133,6 +158,7 @@ public class Menu {
         }
     }
 
+
     public void displayMenu() {
         if (menuItems.isEmpty()) {
             System.out.println("Menu is empty.");
@@ -141,9 +167,9 @@ public class Menu {
             for (MenuItem menuItem : menuItems) {
                 System.out.println("\nName: " + menuItem.getName());
                 System.out.println("Description: " + menuItem.getDescription());
-                System.out.println("Preparation Time: " + menuItem.getPrepTime());
+//                System.out.println("Preparation Time: " + menuItem.getPrepTime());
                 System.out.println("Price: " + menuItem.getPrice());
-                System.out.println("Ingredients: " + String.join(", ", menuItem.getIngredients()));
+//                System.out.println("Ingredients: " + String.join(", ", menuItem.getIngredients()));
             }
         }
     }
