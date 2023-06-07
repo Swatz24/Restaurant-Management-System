@@ -1,48 +1,33 @@
 package example;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.Map;
 
+import java.util.List;
 
 public class UserAuthentication {
-    private final Map<String, User> users;
+    public static String authenticateUser(String username, List<String> employee, List<String> password, String inputPassword) {
+        for (int i = 0; i < employee.size(); i++) {
+            String storedUsername = employee.get(i);
+            String storedPassword = password.get(i);
 
-    public UserAuthentication() {
-        this.users = new HashMap<>();
-    }
+            String[] employeeDetails = storedUsername.split("\\(");
+            String uname = employeeDetails[0];
 
-    public void registerUser(String username, String password, UserRole role) {
-        String hashedPassword = hashPassword(password);
-        User user = new User(username, hashedPassword, role);
-        users.put(username, user);
-        System.out.println("User registered successfully. Username: " + username);
-    }
-
-    public UserRole authenticateUser(String username, String password) {
-        User user = users.get(username);
-        if (user != null) {
-            String hashedPassword = hashPassword(password);
-            if (user.getPassword().equals(hashedPassword)) {
-                return user.getRole();
+            if (uname.equalsIgnoreCase(username) && LoginSystem.check(inputPassword, storedPassword)) {
+                if (storedUsername.endsWith("(MANAGER)")) {
+                    return "MANAGER";
+                } else if (storedUsername.endsWith("(STAFF)")) {
+                    return "STAFF";
+                }
+                break;
             }
         }
-        return null;
+        return "unknown";
     }
 
-    private String hashPassword(String password) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] hashedBytes = md.digest(password.getBytes());
-            StringBuilder sb = new StringBuilder();
-            for (byte b : hashedBytes) {
-                sb.append(String.format("%02x", b));
-            }
-            return sb.toString();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+
+
+
+
+
 }
+
 
