@@ -81,7 +81,7 @@ public class RestaurantMgmtSystem {
                 if (role.equalsIgnoreCase("MANAGER")) {
                     // Manager menu options
                     System.out.println("Welcome, Manager!");
-                    Menu menuService = new Menu("C:\\CTAC\\RestaurantMgmtSystem\\untitled\\src\\main\\java\\example\\menu.txt");
+                    Menu menuService = new Menu();
                     menuService.loadMenu();
 
                     int choice;
