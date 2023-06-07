@@ -1,7 +1,7 @@
-1. chicken fingers|Tender and juicy.|10|6.0|Chicken tenders,Oil
-2. House Salad|Tasty. For the health nut.|8|7.0|Lettuce,Tomato,Cucumber,Ranch
-3. Chicken Tender Sandwich|Smack yo mama good.|5|6.0|Lettuce,Bread slices,Tomato,Chicken tenders
-4. Grilled cheese sandwich|Cheese and bread. What more could you want?|10|6.0|Bread Slices,Cheese
-5. Fries|All the potatoes.|8|2.0|Potatoes
-6. Bottled Water|Faucet water in a bottle.|1|1.0|Water
-7. Donut|Sweet and Round|10|3.0|flour,butter,sugar
+chicken fingers|Tender and juicy.|10|6.0|Chicken tenders,Oil
+House Salad|Tasty. For the health nut.|8|7.0|Lettuce,Tomato,Cucumber,Ranch
+Chicken Tender Sandwich|Smack yo mama good.|5|6.0|Lettuce,Bread slices,Tomato,Chicken tenders
+Grilled cheese sandwich|Cheese and bread. What more could you want?|10|6.0|Bread Slices,Cheese
+Fries|All the potatoes.|8|2.0|Potatoes
+Bottled Water|Faucet water in a bottle.|1|1.0|Water
+Donut|Sweet and Round|10|3.0|flour,butter,sugar

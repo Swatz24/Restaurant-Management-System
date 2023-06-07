@@ -8,8 +8,15 @@ public class InventoryService {
     private Map<String, InventoryItem> inventory;
     private String inventoryFilePath;
 
+    private Map<String, Integer> ingredients;
+
+    public InventoryService() {
+        ingredients = new HashMap<>();
+    }
+
     public InventoryService(String inventoryFilePath) {
         inventory = new HashMap<>();
+        ingredients = new HashMap<>();
         this.inventoryFilePath = inventoryFilePath;
         loadInventory(); // Load inventory from file when creating an instance
     }
@@ -76,18 +83,35 @@ public class InventoryService {
 
     // Load the inventory from a file
     private void loadInventory() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(inventoryFilePath))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\CTAC\\RestaurantMgmtSystem\\untitled\\src\\main\\java\\example\\inventory.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts.length == 2) {
-                    String name = parts[0];
-                    int quantity = Integer.parseInt(parts[1]);
-                    inventory.put(name, new InventoryItem(name, quantity)); // Create an InventoryItem and add it to the inventory map
+                    String ingredient = parts[0].trim();
+                    int quantity = Integer.parseInt(parts[1].trim());
+                    System.out.println(ingredient);
+                    inventory.put(ingredient, new InventoryItem(ingredient, quantity));
+                    
+                    ingredients.put(ingredient, quantity);
                 }
             }
         } catch (IOException e) {
             System.out.println("Failed to load inventory: " + e.getMessage());
         }
     }
+
+
+    public boolean isIngredientAvailable(String ingredient) {
+        loadInventory();
+        System.out.println(inventory.get(ingredient));
+        if(inventory.isEmpty()){
+            return false;
+        }
+
+
+        return inventory.containsKey(ingredient) ;
+    }
+
+
 }

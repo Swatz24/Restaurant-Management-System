@@ -15,6 +15,7 @@ public class RestaurantMgmtSystem {
 
         // Table Manager
         TableManager tableManager = new TableManager();
+        Menu menuService = new Menu();
 
         // Add tables
         Table table1 = new Table(1, 2, "Available");
@@ -74,6 +75,7 @@ public class RestaurantMgmtSystem {
             // Authentication
             UserAuthentication userAuth = new UserAuthentication();
             String role = userAuth.authenticateUser(username, employee, password, pw);
+            System.out.println(pw);
 //        System.out.println("Role: " + role);
         System.out.println("pwd" + pw);
             if (role != null) {
@@ -81,7 +83,7 @@ public class RestaurantMgmtSystem {
                 if (role.equalsIgnoreCase("MANAGER")) {
                     // Manager menu options
                     System.out.println("Welcome, Manager!");
-                    Menu menuService = new Menu();
+//                    Menu menuService = new Menu();
                     menuService.loadMenu();
 
                     int choice;
@@ -150,7 +152,7 @@ public class RestaurantMgmtSystem {
                     System.out.println("Welcome, Staff!");
                     // TableService tableService = new TableService();
                     //  MenuService menuService = new MenuService();
-                    //menuService.loadMenuItems();
+                    menuService.loadMenu();
 
                     int choice;
                     do {
@@ -166,12 +168,14 @@ public class RestaurantMgmtSystem {
                         System.out.print("Enter your choice: ");
                         choice = scanner.nextInt();
                         scanner.nextLine(); // Consume the newline character
-                        OrderService orderService = new OrderService();
+                        Menu menu = new Menu();
+                        OrderService orderService = new OrderService(menuService);
 
                         switch (choice) {
                             case 1:
                                 System.out.println("List of tables occupied: ");
                                 tableManager.displayOccupiedTables();
+                                orderService.takeOrder(tableManager, scanner);
 
 //                                orderService.takeOrder(tableManager, scanner);
 

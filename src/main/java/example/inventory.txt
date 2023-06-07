@@ -1,12 +1,13 @@
-Bread slices,5000
-Water,2500
-Lettuce,2500
-Oil,2496
-Potatoes,2494
-Ranch,2500
-Coke,2500
-Chicken tenders,2495
-Cheese,2500
-Tomato,2500
-Cucumber,2500
+Bread slices,50
+Water,25
+Potatoes,24
+Coke,25
+Chicken tenders,24
+Cheese,25
+Tomato,25
+Salt,200
+Lettuce,25
+Oil,24
+Ranch,25
+Cucumber,25
 sugar,30

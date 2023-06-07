@@ -24,7 +24,7 @@ public class Menu {
 
     public Menu() {
         this.scanner = new Scanner(System.in);
-        this.MENU_FILE = "/Users/minhsmair/RestaurantTesting/TestingRestaurant/src/main/java/example/menu.txt";
+        this.MENU_FILE = "C:\\CTAC\\RestaurantMgmtSystem\\untitled\\src\\main\\java\\example\\menu.txt";
     }
 
     public List<MenuItem> loadMenu() {
@@ -190,8 +190,31 @@ public class Menu {
         }
 
     }
+    public MenuItem getMenuItemByName(String name) {
+        name = name.trim(); // Remove leading/trailing spaces from the item name
+        for (MenuItem menuItem : menuItems) {
+
+            if (menuItem.getName().equalsIgnoreCase(name)) {
+
+                return menuItem;
+            }
+        }
+        return null; // If no menu item with the given name is found
+    }
+
 
     public List<MenuItem> getMenuItems() {
         return menuItems;
+    }
+
+    public List<String> getMenuItemIngredients(String itemName) {
+        List<String> ingredients = new ArrayList<>();
+
+        MenuItem menuItem = getMenuItemByName(itemName);
+        if (menuItem != null) {
+            ingredients = menuItem.getIngredients();
+        }
+
+        return ingredients;
     }
 }

@@ -4,13 +4,13 @@ public class Table {
     private int tableId;
     private int tableSize;
     private String status;
-    private Order currentOrder;
+
 
     public Table(int tableId, int tableSize, String status) {
         this.tableId = tableId;
         this.tableSize = tableSize;
         this.status = status;
-        this.currentOrder = null;
+
     }
 
     public int getTableId() {
@@ -37,12 +37,6 @@ public class Table {
         this.status = status;
     }
 
-    public Order getCurrentOrder() {
-        return currentOrder;
-    }
 
-    public void setCurrentOrder(Order order) {
-        this.currentOrder = order;
-    }
 
 }

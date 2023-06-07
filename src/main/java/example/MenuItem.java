@@ -9,6 +9,8 @@ class MenuItem {
     private int prepTime;
     private double price;
     private List<String> ingredients;
+    Menu menu = new Menu();
+    InventoryService inventory = new InventoryService();
 
     public MenuItem(String name, String description, int prepTime, double price, List<String> ingredients) {
         this.name = name;
@@ -89,4 +91,25 @@ class MenuItem {
 
         return new MenuItem(name, description, prepTime, price, ingredients);
     }
+
+    public boolean isAvailable() {
+        // Check if the inventory is available
+        if (inventory == null) {
+            return false;
+        }
+
+        // Get the required ingredients for the menu item
+        List<String> requiredIngredients = menu.getMenuItemIngredients(name);
+        System.out.println(requiredIngredients);
+
+        // Check if all the required ingredients are available in the inventory
+        for (String ingredient : requiredIngredients) {
+            if (!inventory.isIngredientAvailable(ingredient)) {
+                return false; // Ingredient is not available
+            }
+        }
+
+        return true; // All ingredients are available
+    }
+
 }
