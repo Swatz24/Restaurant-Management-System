@@ -17,17 +17,7 @@ public class RestaurantMgmtSystem {
         InventoryService inventoryService = new InventoryService("C:\\CTAC\\RestaurantMgmtSystem\\untitled\\src\\main\\java\\example\\inventory.txt");
 
         // Adding items to the inventory
-        inventoryService.addIngredient("Potatoes", 100);
-        inventoryService.addIngredient("Chicken tenders", 100);
-        inventoryService.addIngredient("Oil", 100);
-        inventoryService.addIngredient("Bread slices", 200);
-        inventoryService.addIngredient("Cheese", 100);
-        inventoryService.addIngredient("Lettuce", 100);
-        inventoryService.addIngredient("Cucumber", 100);
-        inventoryService.addIngredient("Ranch", 100);
-        inventoryService.addIngredient("Tomato", 100);
-        inventoryService.addIngredient("Water", 100);
-        inventoryService.addIngredient("Coke", 100);
+
 
         // Table Manager
         TableManager tableManager = new TableManager();
@@ -108,6 +98,7 @@ public class RestaurantMgmtSystem {
                         case 5:
 
                             inventoryService.checkInventoryStatus();
+                            break;
 
                         case 6:
                             System.out.println("Please enter the ingredient name to be added: ");

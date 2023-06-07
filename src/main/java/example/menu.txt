@@ -1,1 +1,7 @@
-Chicken Tenders|Tender and juicy.|10|5.0|Chicken tenders,OilHouse Salad|Tasty. For the health nut.|8|7.0|Lettuce,Tomato,Cucumber,RanchChicken Tender Sandwich|Smack yo mama good.|5|6.0|Lettuce,Bread slices,Tomato,Chicken tendersGrilled Cheese|Cheese and bread. What more could you want?|5|6.0|Bread Slices,CheeseFries|All the potatoes.|8|2.0|PotatoesBottled Water|Faucet water in a bottle.|1|1.0|WaterSoda|Fizzy|1|1.0|Coke
+Chicken Tenders|Tender and juicy.|10|5.0|Chicken tenders,Oil
+House Salad|Tasty. For the health nut.|8|7.0|Lettuce,Tomato,Cucumber,Ranch
+Chicken Tender Sandwich|Smack yo mama good.|5|6.0|Lettuce,Bread slices,Tomato,Chicken tenders
+Grilled Cheese|Cheese and bread. What more could you want?|5|6.0|Bread Slices,Cheese
+Fries|All the potatoes.|8|2.0|Potatoes
+Bottled Water|Faucet water in a bottle.|1|1.0|Water
+Donut|Sweet,round|10|2.0|flour,butter,sugar

@@ -12,6 +12,8 @@ public class Menu {
 
     public Menu(String s) {
         this.MENU_FILE = s;
+        System.out.println(MENU_FILE);
+        loadMenu();
     }
 
     public List<MenuItem> loadMenu() {
@@ -20,7 +22,8 @@ public class Menu {
             if (file.exists()) {
                 BufferedReader reader = new BufferedReader(new FileReader(file));
 
-                List<MenuItem> menuItems = new ArrayList<>();
+                menuItems.clear(); // Clear the existing menu items
+
                 String line;
                 while ((line = reader.readLine()) != null) {
                     MenuItem menuItem = MenuItem.fromStringWithDelimiters(line);
@@ -35,6 +38,7 @@ public class Menu {
         }
         return new ArrayList<>();
     }
+
 
     public void saveMenu() {
         try {
@@ -52,16 +56,13 @@ public class Menu {
         }
     }
 
-   public void addItem( MenuItem menuItem) {
-
+    public void addItem(MenuItem menuItem) {
         menuItems.add(menuItem);
-
         System.out.println("Menu item added successfully!");
+        saveMenu(); // Save the updated menu to file
     }
 
     public void removeItem(String itemName) {
-
-
         boolean found = false;
         Iterator<MenuItem> iterator = menuItems.iterator();
         while (iterator.hasNext()) {
@@ -75,6 +76,7 @@ public class Menu {
 
         if (found) {
             System.out.println("Menu item removed successfully!");
+            saveMenu(); // Save the updated menu to file
         } else {
             System.out.println("Item not found in the menu.");
         }
