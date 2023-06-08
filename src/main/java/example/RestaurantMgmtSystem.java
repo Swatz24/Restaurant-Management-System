@@ -1,6 +1,7 @@
 package example;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,11 +11,17 @@ public class RestaurantMgmtSystem {
         boolean exitProgram = false;
 
         // Create object for InventoryService class and define the filePath where you want the file to be saved.
-        InventoryService inventoryService = new InventoryService("/Users/minhsmair/SwathiTesting/TestingRestaurant/src/main/java/example/inventory.txt");
+        InventoryService inventoryService = new InventoryService("C:\\CTAC\\RestaurantMgmtSystem\\untitled\\src\\main\\java\\example\\inventory.txt");
+//        System.out.println( inventoryService.isIngredientAvailable("sugar"));
+//        System.out.println(  inventoryService.isIngredientAvailable("Potatoes"));
+        // MenuService
         Menu menuService = new Menu();
-        TableManager tableManager = new TableManager();
-        LoginSystem login = new LoginSystem();
+        menuService.loadMenu();
+        Menu menu = new Menu();
+        OrderService orderService = new OrderService(menuService, inventoryService);
 
+        // Table Manager
+        TableManager tableManager = new TableManager();
         // Add tables
         Table table1 = new Table(1, 2, "Available");
         Table table2 = new Table(2, 2, "Available");
@@ -27,6 +34,10 @@ public class RestaurantMgmtSystem {
         tableManager.addTable(table3);
         tableManager.addTable(table4);
         tableManager.addTable(table5);
+
+
+        //Beginning of login portion
+        LoginSystem login = new LoginSystem();
 
         // Create lists to store employee usernames and hashed passwords
         List<String> employee = new ArrayList<>();
@@ -114,8 +125,15 @@ public class RestaurantMgmtSystem {
                                 menuService.saveMenu();
                                 break;
                             case 5:
-                                // SalesReportService salesReportService = new SalesReportService();
-                                //salesReportService.generateSalesReport();
+                               List<Order> order =  orderService.getOrderList();
+                                 SalesReport salesReport = new SalesReport(order);
+                                // Generate the sales report
+                                salesReport.generateDailySalesReport();
+
+                                // Save the sales report to a file
+                                String report = salesReport.getGeneratedReport();
+                                salesReport.saveReportToFile("C:\\CTAC\\RestaurantMgmtSystem\\untitled\\src\\main\\java\\example\\salesReport.txt");
+                                break;
 
                             case 6:
                                 inventoryService.checkInventoryStatus();
@@ -147,9 +165,6 @@ public class RestaurantMgmtSystem {
                     // Staff menu options
                     System.out.println("Welcome, Staff!");
 
-                    menuService.loadMenu();
-                    Menu menu = new Menu();
-                    OrderService orderService = new OrderService(menuService, inventoryService);
 
                     int choice;
                     do {
@@ -166,6 +181,8 @@ public class RestaurantMgmtSystem {
                         System.out.print("Enter your choice: ");
                         choice = scanner.nextInt();
                         scanner.nextLine(); // Consume the newline character
+
+
 
                         switch (choice) {
                             case 1:
@@ -195,6 +212,7 @@ public class RestaurantMgmtSystem {
                                     Table selectedTable = tableManager.getTableById(tableId);
                                     if (selectedTable != null && selectedTable.getStatus().equals("Available") && selectedTable.getTableSize() >= partySize) {
                                         tableManager.assignCustomerToTable(tableId);
+                                        System.out.println("Table " + tableId + " assigned to the party successfully.");
                                     } else {
                                         System.out.println("Invalid table selection. Please choose an available table with a size greater than or equal to the party size.");
                                     }
@@ -223,13 +241,18 @@ public class RestaurantMgmtSystem {
                                 break;
                             case 5:
                                 // Display all tables
-                                tableManager.getAllTables();
+                                List<Table> availableTables = tableManager.getAllTables();
+
                                 break;
+
                             case 6:
                                 // Display all orders
+
                                 orderService.displayOrders();
                                 orderService.displayOrderCounts();
+
                                 break;
+
                             case 7:
                                 loggedIn = false;
                                 System.out.println("Logged out successfully.");
@@ -248,6 +271,8 @@ public class RestaurantMgmtSystem {
                 System.out.println("Invalid username or password. Exiting...");
             }
         }
+
+
     }
 }
 
