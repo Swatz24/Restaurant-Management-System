@@ -1,13 +1,16 @@
-Bread slices,50
-Water,15
-Potatoes,24
-Coke,25
-Chicken tenders,24
-Cheese,25
-Tomato,25
+Bread slices,44
+Water,28
+Potatoes,94
+Coke,250
+Butter,301
+Chicken tenders,298
+Cheese,250
+Flour,427
+Tomato,171
 Salt,200
-Lettuce,25
-Oil,24
-Ranch,25
-Cucumber,25
-sugar,30
+Lettuce,17
+Oil,898
+Ranch,2443
+Nuggets,1115
+Cucumber,230
+sugar,227

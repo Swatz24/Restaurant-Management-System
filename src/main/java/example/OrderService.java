@@ -1,11 +1,11 @@
 package example;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class OrderService {
     private final InventoryService inventoryService;
+
+    private Map<String, Integer> itemOrderCounts; // Map to track order counts
     private List<Order> orders;
     private Menu menu;
 
@@ -13,6 +13,7 @@ public class OrderService {
         this.orders = new ArrayList<>();
         this.menu = menu;
         this.inventoryService = inventoryService; // Add this line
+        this.itemOrderCounts = new HashMap<>();
     }
 
 
@@ -35,30 +36,27 @@ public class OrderService {
             boolean addMoreItems = true;
             while (addMoreItems) {
                 // Display the menu
-
                 menu.displayMenu();
 
-                // Get the menu item name and quantity from the user
-                System.out.print("Enter the menu item name: ");
+                // Get the menu item name from the user
+                System.out.print("Enter the menu item name (or 'exit' to finish): ");
+                String itemName = scanner.nextLine();
+                if (itemName.equalsIgnoreCase("exit")) {
+                    addMoreItems = false;
+                    continue;
+                }
 
-                String itemName = scanner.nextLine(); // Consume the newline character
-                System.out.print("Enter the quantity: ");
-                int quantity = scanner.nextInt();
-                scanner.nextLine(); // Consume the newline character
-
-                // Find the menu item by name
+                // Get the menu item by name
                 MenuItem menuItem = menu.getMenuItemByName(itemName);
 
-                if (menuItem != null ) {
-                    System.out.println("The item you ordered is:  "+ menuItem.getName());
+                if (menuItem != null) {
+                    // Get the quantity from the user
+                    System.out.print("Enter the quantity: ");
+                    int quantity = scanner.nextInt();
+                    scanner.nextLine(); // Consume the newline character
+
                     // Check if the item is available in the menu
-
-                    List<String> ingredientsNeeded =   menuItem.getIngredients();
-
-//                    System.out.println(ingredientsNeeded.size());
-//
-//                    System.out.println(inventoryService.isIngredientAvailable(ingredientsNeeded.get(0)));
-
+                    List<String> ingredientsNeeded = menuItem.getIngredients();
                     boolean allIngredientsAvailable = true;
 
                     for (String ingredient : ingredientsNeeded) {
@@ -68,23 +66,31 @@ public class OrderService {
                         }
                     }
 
+                    if (allIngredientsAvailable) {
+                        // Add the item to the order
+                        OrderItem orderItem = new OrderItem(menuItem.getName(), quantity);
+                        order.addItem(orderItem);
+                       // System.out.println(order);
+                        System.out.println("Item added to the order.");
 
-                        if (allIngredientsAvailable) {
-                            // Add the item to the order
-                            OrderItem orderItem = new OrderItem(menuItem.getName(), quantity);
-                            order.addItem(orderItem);
-                            System.out.println("Item added to the order.");
-                            // Update the inventory
-                            for (String ingredient : ingredientsNeeded) {
-                                inventoryService.useIngredient(ingredient, quantity);
-                            }
+                        // Update the order count for the menu item
+                        if (itemOrderCounts.containsKey(menuItem.getName())) {
+                            int count = itemOrderCounts.get(menuItem.getName());
+                            itemOrderCounts.put(menuItem.getName(), count + quantity);
                         } else {
-                            System.out.println("Insufficient ingredients to prepare the item.");
+                            itemOrderCounts.put(menuItem.getName(), quantity);
+                        }
+
+                        // Update the inventory
+                        for (String ingredient : ingredientsNeeded) {
+                            inventoryService.useIngredient(ingredient, quantity);
                         }
                     } else {
-                        System.out.println("Item is not available in the menu.");
+                        System.out.println("Insufficient ingredients to prepare the item.");
                     }
-
+                } else {
+                    System.out.println("Item is not available in the menu.");
+                }
 
                 // Ask the user if they want to add more items to the order
                 System.out.print("Add more items to the order? (y/n): ");
@@ -97,18 +103,25 @@ public class OrderService {
             // Calculate the total price of the order
             double totalPrice = calculateTotalPrice(order);
             order.setTotalPrice(totalPrice);
+            System.out.println("Total Price: " + totalPrice);
 
             // Set the status of the order to "waiting"
             order.setStatus("waiting");
+            System.out.println("Order Status: " + order.getStatus());
 
             // Add the order to the list of orders
             orders.add(order);
+            System.out.println(orders);
 
             System.out.println("Order placed successfully.");
+
         } else {
             System.out.println("Invalid table ID or the table is not occupied.");
         }
     }
+
+
+
 
     private double calculateTotalPrice(Order order) {
         double totalPrice = 0;
@@ -119,5 +132,26 @@ public class OrderService {
             }
         }
         return totalPrice;
+    }
+
+    public void displayOrders() {
+        if (orders.isEmpty()) {
+            System.out.println("No orders available.");
+        } else {
+            System.out.println("List of Orders:");
+            for (Order order : orders) {
+                System.out.println(order.toString());
+            }
+        }
+    }
+
+
+
+    public void displayOrderCounts() {
+        for (Map.Entry<String, Integer> entry : itemOrderCounts.entrySet()) {
+            String itemName = entry.getKey();
+            int orderCount = entry.getValue();
+            System.out.println(itemName + ": " + orderCount);
+        }
     }
 }

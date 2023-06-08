@@ -4,4 +4,5 @@ Chicken Tender Sandwich|Smack yo mama good.|5|6.0|Lettuce,Bread slices,Tomato,Ch
 Grilled cheese sandwich|Cheese and bread. What more could you want?|10|6.0|Bread Slices,Cheese
 Fries|All the potatoes.|8|2.0|Potatoes
 Bottled Water|Faucet water in a bottle.|1|1.0|Water
-Donut|Sweet and Round|10|3.0|flour,butter,sugar
+Donut|Sweet and Round|10|3.0|Flour,Butter,sugar
+Nuggets|Fresh and crispy|5|5.0|Chicken tenders,Oil

@@ -155,6 +155,8 @@ public class RestaurantMgmtSystem {
                     // TableService tableService = new TableService();
                     //  MenuService menuService = new MenuService();
                     menuService.loadMenu();
+                    Menu menu = new Menu();
+                    OrderService orderService = new OrderService(menuService, inventoryService);
 
                     int choice;
                     do {
@@ -165,13 +167,13 @@ public class RestaurantMgmtSystem {
                         System.out.println("3. Reserve Table");
                         System.out.println("4. Release Table");
                         System.out.println("5. Display all Tables");
-                        System.out.println("6. Log Out");
+                        System.out.println("6. Display the orders");
+                        System.out.println("7. Log Out");
                         System.out.println("0. Exit");
                         System.out.print("Enter your choice: ");
                         choice = scanner.nextInt();
                         scanner.nextLine(); // Consume the newline character
-                        Menu menu = new Menu();
-                        OrderService orderService = new OrderService(menuService, inventoryService);
+
 
 
                         switch (choice) {
@@ -243,6 +245,14 @@ public class RestaurantMgmtSystem {
                                 break;
 
                             case 6:
+                                // Display all orders
+
+                                orderService.displayOrders();
+                                orderService.displayOrderCounts();
+
+                                break;
+
+                            case 7:
                                 loggedIn = false;
                                 System.out.println("Logged out successfully.");
                                 break;
@@ -254,7 +264,7 @@ public class RestaurantMgmtSystem {
                             default:
                                 System.out.println("Invalid choice. Please try again.");
                         }
-                    }while (loggedIn && !exitProgram && choice != 0 && choice != 6);
+                    }while (loggedIn && !exitProgram && choice != 0 && choice != 7);
                 }
             } else {
                 System.out.println("Invalid username or password. Exiting...");
