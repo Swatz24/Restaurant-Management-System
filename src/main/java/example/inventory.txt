@@ -2,16 +2,17 @@ Bread slices,32
 Water,18
 Potatoes,34
 Coke,222
-Butter,247
+Butter,245
 Chicken tenders,248
 Cheese,248
-Flour,346
+Flour,344
 Tomato,159
+Coffee,95
 Salt,200
 Lettuce,98
 Oil,858
 Ranch,241
 Nuggets,115
 Cucumber,228
-sugar,172
-Milk,95
+sugar,165
+Milk,90

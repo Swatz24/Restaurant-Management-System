@@ -56,7 +56,7 @@ public class Menu {
 
             for(int i = 0; i < menuItems.size(); ++i) {
                 MenuItem menuItem = (MenuItem)menuItems.get(i);
-                String line = i + 1 + ". " + menuItem.toStringWithDelimiters();
+                String line =  menuItem.toStringWithDelimiters();
                 writer.write(line);
                 writer.newLine();
             }

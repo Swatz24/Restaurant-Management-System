@@ -32,10 +32,10 @@ public class InventoryService {
         saveInventory(); // Save inventory to file after modification
     }
 
-//    changes by Chitra for testing
-//    public Map<String, InventoryItem> getInventory() {
-//        return inventory;
-//    }
+    //changes by Chitra for testing
+    public Map<String, InventoryItem> getInventory() {
+        return inventory;
+    }
 
     // Use an ingredient from the inventory
     public void useIngredient(String name, int quantity) {
