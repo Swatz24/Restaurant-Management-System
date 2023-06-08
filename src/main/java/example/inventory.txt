@@ -5,7 +5,7 @@ Coke,250
 Butter,301
 Chicken tenders,298
 Cheese,250
-Flour,427
+Flour,400
 Tomato,171
 Salt,200
 Lettuce,17

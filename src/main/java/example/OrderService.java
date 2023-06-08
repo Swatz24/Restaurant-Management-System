@@ -84,6 +84,7 @@ public class OrderService {
                         // Update the inventory
                         for (String ingredient : ingredientsNeeded) {
                             inventoryService.useIngredient(ingredient, quantity);
+                            inventoryService.checkIngredientAlert();
                         }
                     } else {
                         System.out.println("Insufficient ingredients to prepare the item.");
