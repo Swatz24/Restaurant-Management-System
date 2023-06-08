@@ -1,9 +1,6 @@
 package example;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class Order {
 
@@ -14,6 +11,7 @@ public class Order {
     private String status;
     private int totalPrepTime;
     private Timer timer;
+    private static Map<Integer, Double> tableRevenue = new HashMap<>();
 
     private static int nextOrderId = 1; // Static field to generate unique order IDs
 
@@ -25,6 +23,7 @@ public class Order {
         this.status = "waiting";
         this.totalPrepTime = 0;
     }
+
 
     // Getters and setters
     public int getOrderId() {
@@ -63,6 +62,10 @@ public class Order {
         return status;
     }
 
+    public static Map<Integer, Double> getTableRevenue() {
+        return tableRevenue;
+    }
+
     public void setStatus(String status) {
         this.status = status;
         if (status.equals("preparing")) {
@@ -91,6 +94,10 @@ public class Order {
 
     public void addItem(OrderItem item) {
         items.add(item);
+    }
+
+    public static void updateTableRevenue(int tableId, double totalPrice) {
+        tableRevenue.put(tableId, tableRevenue.getOrDefault(tableId, 0.0) + totalPrice);
     }
 
     // Override the toString() method to display the order details

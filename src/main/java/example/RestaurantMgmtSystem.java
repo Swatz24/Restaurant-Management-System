@@ -15,7 +15,6 @@ public class RestaurantMgmtSystem {
         // MenuService
         Menu menuService = new Menu();
         menuService.loadMenu();
-        Menu menu = new Menu();
         OrderService orderService = new OrderService(menuService, inventoryService);
 
         // Table Manager
@@ -123,14 +122,14 @@ public class RestaurantMgmtSystem {
                                 menuService.saveMenu();
                                 break;
                             case 5:
-                               List<Order> order =  orderService.getOrderList();
+                                 List<Order> order =  orderService.getOrderList();
                                  SalesReport salesReport = new SalesReport(order);
                                 // Generate the sales report
-                                salesReport.generateDailySalesReport();
+                                salesReport.generateDailySalesReport(orderService);
 
                                 // Save the sales report to a file
                                 String report = salesReport.getGeneratedReport();
-                                salesReport.saveReportToFile("C:\\CTAC\\RestaurantMgmtSystem\\untitled\\src\\main\\java\\example\\salesReport.txt");
+//                                salesReport.saveReportToFile("C:\\CTAC\\RestaurantMgmtSystem\\untitled\\src\\main\\java\\example\\salesReport.txt");
                               break;
 
                             case 6:

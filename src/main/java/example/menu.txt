@@ -6,3 +6,4 @@ Fries|I am potato.|8|2.0|Potatoes
 Water|Drinkable. We think.|1|1.0|Water
 Soda|Fizzy|1|2.0|Coke
 Donut|Sweet and Round|10|3.0|Flour,Butter,Sugar
+Icecream|Cold and Sweet|15|5.0|Milk,Sugar

@@ -1,6 +1,7 @@
 package example;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class OrderService {
     private final InventoryService inventoryService;
@@ -20,7 +21,13 @@ public class OrderService {
     public void takeOrder(TableManager tableManager, Scanner scanner) {
         // Display occupied tables
         System.out.println("List of occupied tables:");
-        tableManager.displayOccupiedTables();
+
+
+        boolean hasOcuupiedTables =tableManager.displayOccupiedTables();
+        if(!hasOcuupiedTables){
+            System.out.println("There are no tables that are currently occupied. So cannot take order now.");
+            return;
+        }
 
         // Get the table ID from the user
         System.out.print("Enter the table ID: ");
@@ -80,6 +87,9 @@ public class OrderService {
                         } else {
                             itemOrderCounts.put(menuItem.getName(), quantity);
                         }
+                        // Update the total preparation time
+                        int itemPrepTime = menuItem.getPrepTime();
+                        order.setTotalPrepTime(order.getTotalPrepTime() + (itemPrepTime * quantity));
 
                         // Update the inventory
                         for (String ingredient : ingredientsNeeded) {
@@ -110,11 +120,16 @@ public class OrderService {
             order.setStatus("waiting");
             System.out.println("Order Status: " + order.getStatus());
 
+
+
             // Add the order to the list of orders
             orders.add(order);
-            System.out.println(orders);
+            System.out.println(order);
 
             System.out.println("Order placed successfully.");
+
+            order.setStatus("preparing");
+            System.out.println("Preparing order now.");
 
         } else {
             System.out.println("Invalid table ID or the table is not occupied.");
@@ -164,17 +179,21 @@ public class OrderService {
     }
 
 
-    public Map<String, Integer> getPopularItems() {
+    public Map<String, Integer> getPopularItemsSorted() {
         Map<String, Integer> popularItems = new HashMap<>();
         for (Map.Entry<String, Integer> entry : itemOrderCounts.entrySet()) {
             String itemName = entry.getKey();
             int orderCount = entry.getValue();
             popularItems.put(itemName, orderCount);
         }
-        return popularItems;
+        return popularItems.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new));
     }
 
-    public Map<Integer, Double> getTableRevenue() {
+
+    public Map<Integer, Double> getTableRevenueSorted() {
         Map<Integer, Double> tableRevenue = new HashMap<>();
         for (Order order : orders) {
             int tableId = order.getTableId();
@@ -184,7 +203,10 @@ public class OrderService {
             }
             tableRevenue.put(tableId, totalPrice);
         }
-        return tableRevenue;
+        return tableRevenue.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new));
     }
 
     public List<Order> getOrderList() {

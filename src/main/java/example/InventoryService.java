@@ -32,9 +32,21 @@ public class InventoryService {
         saveInventory(); // Save inventory to file after modification
     }
 
+//    changes by Chitra for testing
+//    public Map<String, InventoryItem> getInventory() {
+//        return inventory;
+//    }
+
     // Use an ingredient from the inventory
     public void useIngredient(String name, int quantity) {
-        InventoryItem item = inventory.get(name);
+        InventoryItem item = null;
+        for (Map.Entry<String, InventoryItem> entry : inventory.entrySet()) {
+            if (entry.getKey().equalsIgnoreCase(name)) {
+                item = entry.getValue();
+                break;
+            }
+        }
+
         if (item != null) {
             int currentQuantity = item.getQuantity();
             if (currentQuantity >= quantity) {
@@ -45,8 +57,11 @@ public class InventoryService {
         } else {
             System.out.println("Ingredient " + name + " not found");
         }
+
         saveInventory(); // Save inventory to file after modification
     }
+
+
 
     // Check the quantity of a specific ingredient in the inventory
     public void checkIngredientQuantity(String name) {
@@ -104,12 +119,14 @@ public class InventoryService {
 
 
     public boolean isIngredientAvailable(String ingredient, int quantity) {
-        InventoryItem item = inventory.get(ingredient);
-        if (item != null && item.getQuantity() > quantity) {
-            return true;
+        for (InventoryItem item : inventory.values()) {
+            if (item.getName().equalsIgnoreCase(ingredient) && item.getQuantity() >= quantity) {
+                return true;
+            }
         }
         return false;
     }
+
 
     public void checkIngredientAlert() {
 //        System.out.println("Ingredient Alert:");

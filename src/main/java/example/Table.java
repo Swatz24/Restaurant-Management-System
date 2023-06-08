@@ -4,13 +4,13 @@ public class Table {
     private int tableId;
     private int tableSize;
     private String status;
-
+    private double revenue;
 
     public Table(int tableId, int tableSize, String status) {
         this.tableId = tableId;
         this.tableSize = tableSize;
         this.status = status;
-
+        this.revenue = 0;
     }
 
     public int getTableId() {
@@ -36,7 +36,4 @@ public class Table {
     public void setStatus(String status) {
         this.status = status;
     }
-
-
-
 }

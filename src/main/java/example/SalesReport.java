@@ -1,4 +1,6 @@
 package example;
+
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,14 +22,15 @@ public class SalesReport {
         this.orderList = orderList;
     }
 
-    public void generateDailySalesReport() {
+    public void generateDailySalesReport(OrderService orderService) {
         LocalDateTime current = LocalDateTime.now();
-        OrderService orderService = new OrderService(new Menu(), new InventoryService());
-        Map<Integer, Double> tableRevenue = orderService.getTableRevenue();
-        Map<String, Integer> popularItems = orderService.getPopularItems();
 
-        String report = "-----------------------------\n Daily Sales Report \n " +
-                dateTimeFormatter.format(current) + "\n-----------------------------\n" +
+        Map<String, Integer> popularItems = orderService.getPopularItemsSorted();
+        Map<Integer, Double> tableRevenue = orderService.getTableRevenueSorted();
+
+        String report = "-----------------------------\n" +
+                "Daily Sales Report \n " +
+                "Date: " + dateTimeFormatter.format(current) + "\n-----------------------------\n" +
                 "Total Revenue: $" + decimalFormatter.format(calculateTotalRevenue()) + "\n\n" +
                 "Most Popular Items: \n" +
                 popularItemsToString(popularItems) + "\n" +
@@ -36,6 +39,7 @@ public class SalesReport {
                 "Detailed Orders: \n" +
                 printOrders(orderList);
         this.generatedReport = report;
+        System.out.println(report);
         saveReportToFile("C:\\CTAC\\RestaurantMgmtSystem\\untitled\\src\\main\\java\\example\\salesReport.txt");
     }
 
