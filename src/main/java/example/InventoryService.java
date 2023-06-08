@@ -111,6 +111,15 @@ public class InventoryService {
         return false;
     }
 
+    public void checkIngredientAlert() {
+        System.out.println("Ingredient Alert:");
+        inventory.forEach((name, item) -> {
+            if (item.getQuantity() < 5) {
+                System.out.println("Low quantity of " + name + ": " + item.getQuantity());
+            }
+        });
+    }
+
 
 
 }

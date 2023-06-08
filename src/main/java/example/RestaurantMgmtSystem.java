@@ -107,6 +107,7 @@ public class RestaurantMgmtSystem {
                         switch (choice) {
                             case 1:
                                 menuService.displayMenu();
+                                inventoryService.checkIngredientAlert();
                                 break;
                             case 2:
                                 menuService.addItem();
@@ -126,6 +127,7 @@ public class RestaurantMgmtSystem {
 
                             case 6:
                                 inventoryService.checkInventoryStatus();
+                                inventoryService.checkIngredientAlert();
                                 break;
                             case 7:
                                 System.out.println("Please enter the ingredient name to be added: ");
@@ -178,14 +180,7 @@ public class RestaurantMgmtSystem {
 
                         switch (choice) {
                             case 1:
-                                System.out.println("List of tables occupied: ");
-                                tableManager.displayOccupiedTables();
-
-
                                 orderService.takeOrder(tableManager, scanner);
-
-//                                orderService.takeOrder(tableManager, scanner);
-
                                 break;
                             case 2:
                                 // Assign table
