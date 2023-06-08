@@ -83,7 +83,7 @@ public class InventoryService {
 
     // Load the inventory from a file
     private void loadInventory() {
-        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\CTAC\\RestaurantMgmtSystem\\untitled\\src\\main\\java\\example\\inventory.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("/Users/minhsmair/SwathiTesting/TestingRestaurant/src/main/java/example/inventory.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
@@ -112,7 +112,7 @@ public class InventoryService {
     }
 
     public void checkIngredientAlert() {
-        System.out.println("Ingredient Alert:");
+//        System.out.println("Ingredient Alert:");
         inventory.forEach((name, item) -> {
             if (item.getQuantity() < 5) {
                 System.out.println("Low quantity of " + name + ": " + item.getQuantity());

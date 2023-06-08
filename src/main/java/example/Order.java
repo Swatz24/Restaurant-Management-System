@@ -2,6 +2,8 @@ package example;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Order {
 
@@ -10,6 +12,8 @@ public class Order {
     private List<OrderItem> items;
     private double totalPrice;
     private String status;
+    private int totalPrepTime;
+    private Timer timer;
 
     private static int nextOrderId = 1; // Static field to generate unique order IDs
 
@@ -19,6 +23,7 @@ public class Order {
         this.items = new ArrayList<>();
         this.totalPrice = 0.0;
         this.status = "waiting";
+        this.totalPrepTime = 0;
     }
 
     // Getters and setters
@@ -60,6 +65,28 @@ public class Order {
 
     public void setStatus(String status) {
         this.status = status;
+        if (status.equals("preparing")) {
+            startTimer();
+        }
+    }
+
+    private void startTimer() {
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // once the timer is done, changes status to complete
+                setStatus("complete");
+            }
+        }, totalPrepTime * 60 * 1000); //converts minutes to milliseconds
+    }
+
+    public int getTotalPrepTime() {
+        return totalPrepTime;
+    }
+
+    public void setTotalPrepTime(int totalPrepTime) {
+        this.totalPrepTime = totalPrepTime;
     }
 
     public void addItem(OrderItem item) {
@@ -78,6 +105,7 @@ public class Order {
             builder.append("- ").append(item.getName()).append(" (Quantity: ").append(item.getQuantity()).append(")\n");
         }
         builder.append("Total Price: ").append(totalPrice).append("\n");
+        builder.append("Total Prep Time: ").append(totalPrepTime).append("\n");
         return builder.toString();
     }
 }

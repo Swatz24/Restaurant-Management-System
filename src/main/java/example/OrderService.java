@@ -84,8 +84,12 @@ public class OrderService {
                         // Update the inventory
                         for (String ingredient : ingredientsNeeded) {
                             inventoryService.useIngredient(ingredient, quantity);
-                            inventoryService.checkIngredientAlert();
+                            // inventoryService.checkIngredientAlert();
                         }
+
+                        // Update the total preparation time
+                        int itemPrepTime = menuItem.getPrepTime();
+                        order.setTotalPrepTime(order.getTotalPrepTime() + (itemPrepTime * quantity));
                     } else {
                         System.out.println("Insufficient ingredients to prepare the item.");
                     }
@@ -104,17 +108,19 @@ public class OrderService {
             // Calculate the total price of the order
             double totalPrice = calculateTotalPrice(order);
             order.setTotalPrice(totalPrice);
-            System.out.println("Total Price: " + totalPrice);
+//            System.out.println("Total Price: " + totalPrice);
 
             // Set the status of the order to "waiting"
             order.setStatus("waiting");
-            System.out.println("Order Status: " + order.getStatus());
+//            System.out.println("Order Status: " + order.getStatus());
 
             // Add the order to the list of orders
             orders.add(order);
-            System.out.println(orders);
+            System.out.println(order);
 
             System.out.println("Order placed successfully.");
+            order.setStatus("preparing");
+            System.out.println("Preparing order now.");
 
         } else {
             System.out.println("Invalid table ID or the table is not occupied.");
@@ -135,6 +141,17 @@ public class OrderService {
         return totalPrice;
     }
 
+    private int calculateTotalPrepTime(Order order) {
+        int totalPrepTime = 0;
+        for (OrderItem item : order.getItems()) {
+            MenuItem menuItem = menu.getMenuItemByName(item.getName());
+            if (menuItem != null) {
+                totalPrepTime += menuItem.getPrepTime();
+            }
+        }
+        return totalPrepTime;
+    }
+
     public void displayOrders() {
         if (orders.isEmpty()) {
             System.out.println("No orders available.");
@@ -145,8 +162,6 @@ public class OrderService {
             }
         }
     }
-
-
 
     public void displayOrderCounts() {
         for (Map.Entry<String, Integer> entry : itemOrderCounts.entrySet()) {

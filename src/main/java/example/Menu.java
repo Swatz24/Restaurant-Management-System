@@ -24,7 +24,7 @@ public class Menu {
 
     public Menu() {
         this.scanner = new Scanner(System.in);
-        this.MENU_FILE = "C:\\CTAC\\RestaurantMgmtSystem\\untitled\\src\\main\\java\\example\\menu.txt";
+        this.MENU_FILE = "/Users/minhsmair/SwathiTesting/TestingRestaurant/src/main/java/example/menu.txt";
     }
 
     public List<MenuItem> loadMenu() {
