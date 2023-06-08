@@ -70,7 +70,7 @@ public class OrderService {
                         // Add the item to the order
                         OrderItem orderItem = new OrderItem(menuItem.getName(), quantity);
                         order.addItem(orderItem);
-                       // System.out.println(order);
+                        // System.out.println(order);
                         System.out.println("Item added to the order.");
 
                         // Update the order count for the menu item
@@ -84,7 +84,7 @@ public class OrderService {
                         // Update the inventory
                         for (String ingredient : ingredientsNeeded) {
                             inventoryService.useIngredient(ingredient, quantity);
-                            inventoryService.checkIngredientAlert();
+                           // inventoryService.checkIngredientAlert();
                         }
                     } else {
                         System.out.println("Insufficient ingredients to prepare the item.");
@@ -122,8 +122,6 @@ public class OrderService {
     }
 
 
-
-
     private double calculateTotalPrice(Order order) {
         double totalPrice = 0;
         for (OrderItem item : order.getItems()) {
@@ -147,7 +145,6 @@ public class OrderService {
     }
 
 
-
     public void displayOrderCounts() {
         for (Map.Entry<String, Integer> entry : itemOrderCounts.entrySet()) {
             String itemName = entry.getKey();
@@ -155,4 +152,44 @@ public class OrderService {
             System.out.println(itemName + ": " + orderCount);
         }
     }
+
+    /////////////////Methods to help generate SAles report///////////////////
+
+    public double getTotalRevenue() {
+        double totalRevenue = 0;
+        for (Order order : orders) {
+            totalRevenue += order.getTotalPrice();
+        }
+        return totalRevenue;
+    }
+
+
+    public Map<String, Integer> getPopularItems() {
+        Map<String, Integer> popularItems = new HashMap<>();
+        for (Map.Entry<String, Integer> entry : itemOrderCounts.entrySet()) {
+            String itemName = entry.getKey();
+            int orderCount = entry.getValue();
+            popularItems.put(itemName, orderCount);
+        }
+        return popularItems;
+    }
+
+    public Map<Integer, Double> getTableRevenue() {
+        Map<Integer, Double> tableRevenue = new HashMap<>();
+        for (Order order : orders) {
+            int tableId = order.getTableId();
+            double totalPrice = order.getTotalPrice();
+            if (tableRevenue.containsKey(tableId)) {
+                totalPrice += tableRevenue.get(tableId);
+            }
+            tableRevenue.put(tableId, totalPrice);
+        }
+        return tableRevenue;
+    }
+
+    public List<Order> getOrderList() {
+        return orders;
+    }
+
 }
+

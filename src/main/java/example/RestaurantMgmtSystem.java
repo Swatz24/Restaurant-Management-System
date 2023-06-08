@@ -16,6 +16,9 @@ public class RestaurantMgmtSystem {
 //        System.out.println(  inventoryService.isIngredientAvailable("Potatoes"));
         // MenuService
         Menu menuService = new Menu();
+        menuService.loadMenu();
+        Menu menu = new Menu();
+        OrderService orderService = new OrderService(menuService, inventoryService);
 
         // Table Manager
         TableManager tableManager = new TableManager();
@@ -122,8 +125,15 @@ public class RestaurantMgmtSystem {
                                 menuService.saveMenu();
                                 break;
                             case 5:
-                                // SalesReportService salesReportService = new SalesReportService();
-                                //salesReportService.generateSalesReport();
+                               List<Order> order =  orderService.getOrderList();
+                                 SalesReport salesReport = new SalesReport(order);
+                                // Generate the sales report
+                                salesReport.generateDailySalesReport();
+
+                                // Save the sales report to a file
+                                String report = salesReport.getGeneratedReport();
+                                salesReport.saveReportToFile("C:\\CTAC\\RestaurantMgmtSystem\\untitled\\src\\main\\java\\example\\salesReport.txt");
+                                break;
 
                             case 6:
                                 inventoryService.checkInventoryStatus();
@@ -154,11 +164,7 @@ public class RestaurantMgmtSystem {
                 } else if (role.equalsIgnoreCase("STAFF")) {
                     // Staff menu options
                     System.out.println("Welcome, Staff!");
-                    // TableService tableService = new TableService();
-                    //  MenuService menuService = new MenuService();
-                    menuService.loadMenu();
-                    Menu menu = new Menu();
-                    OrderService orderService = new OrderService(menuService, inventoryService);
+
 
                     int choice;
                     do {
