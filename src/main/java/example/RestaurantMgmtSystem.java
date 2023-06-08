@@ -12,8 +12,6 @@ public class RestaurantMgmtSystem {
 
         // Create object for InventoryService class and define the filePath where you want the file to be saved.
         InventoryService inventoryService = new InventoryService("C:\\CTAC\\RestaurantMgmtSystem\\untitled\\src\\main\\java\\example\\inventory.txt");
-//        System.out.println( inventoryService.isIngredientAvailable("sugar"));
-//        System.out.println(  inventoryService.isIngredientAvailable("Potatoes"));
         // MenuService
         Menu menuService = new Menu();
         menuService.loadMenu();
@@ -133,7 +131,7 @@ public class RestaurantMgmtSystem {
                                 // Save the sales report to a file
                                 String report = salesReport.getGeneratedReport();
                                 salesReport.saveReportToFile("C:\\CTAC\\RestaurantMgmtSystem\\untitled\\src\\main\\java\\example\\salesReport.txt");
-                                break;
+                              break;
 
                             case 6:
                                 inventoryService.checkInventoryStatus();

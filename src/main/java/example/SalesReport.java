@@ -2,18 +2,20 @@ package example;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class SalesReport {
     private List<Order> orderList;
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private static final DecimalFormat decimalFormatter = new DecimalFormat("0.00");
-    private String generatedReport; // Variable to store the generated report
-
+    private String generatedReport;
     public SalesReport(List<Order> orderList) {
         this.orderList = orderList;
     }
@@ -24,44 +26,49 @@ public class SalesReport {
         Map<Integer, Double> tableRevenue = orderService.getTableRevenue();
         Map<String, Integer> popularItems = orderService.getPopularItems();
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("-----------------------------\n Daily Sales Report \n ")
-                .append(dateTimeFormatter.format(current))
-                .append("\n-----------------------------\n")
-                .append("Total Revenue: $")
-                .append(decimalFormatter.format(orderService.getTotalRevenue()))
-                .append("\n\nMost Popular Items: \n")
-                .append(popularItemsToString(popularItems))
-                .append("\nTables Sales: \n")
-                .append(tableRevenueToString(tableRevenue))
-                .append("\nDetailed Orders: \n")
-                .append(printOrders(orderList));
-
-        generatedReport = sb.toString(); // Store the generated report
+        String report = "-----------------------------\n Daily Sales Report \n " +
+                dateTimeFormatter.format(current) + "\n-----------------------------\n" +
+                "Total Revenue: $" + decimalFormatter.format(calculateTotalRevenue()) + "\n\n" +
+                "Most Popular Items: \n" +
+                popularItemsToString(popularItems) + "\n" +
+                "Tables Sales: \n" +
+                tableRevenueToString(tableRevenue) + "\n" +
+                "Detailed Orders: \n" +
+                printOrders(orderList);
+        this.generatedReport = report;
+        saveReportToFile("C:\\CTAC\\RestaurantMgmtSystem\\untitled\\src\\main\\java\\example\\salesReport.txt");
     }
 
-    public String getGeneratedReport() {
-        return generatedReport;
+    
+    public double calculateTotalRevenue() {
+        double totalRevenue = 0;
+        for (Order order : orderList) {
+            totalRevenue += order.getTotalPrice();
+        }
+        return totalRevenue;
     }
 
-    private String popularItemsToString(Map<String, Integer> popularItems) {
+    public String popularItemsToString(Map<String, Integer> popularItems) {
         StringBuilder sb = new StringBuilder();
+        int rank = 1;
         for (Map.Entry<String, Integer> entry : popularItems.entrySet()) {
-            sb.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
+            sb.append(rank).append(". ").append(entry.getKey()).append(": ").append(entry.getValue()).append(" orders\n");
+            rank++;
         }
         return sb.toString();
     }
 
-    private String tableRevenueToString(Map<Integer, Double> tableRevenue) {
+    public String tableRevenueToString(Map<Integer, Double> tableRevenue) {
         StringBuilder sb = new StringBuilder();
+        int rank = 1;
         for (Map.Entry<Integer, Double> entry : tableRevenue.entrySet()) {
-            sb.append("Table ").append(entry.getKey()).append(": $")
-                    .append(decimalFormatter.format(entry.getValue())).append("\n");
+            sb.append(rank).append(". Table ").append(entry.getKey()).append(": $").append(decimalFormatter.format(entry.getValue())).append("\n");
+            rank++;
         }
         return sb.toString();
     }
 
-    private String printOrders(List<Order> orderList) {
+    public String printOrders(List<Order> orderList) {
         StringBuilder sb = new StringBuilder();
         if (orderList.isEmpty()) {
             sb.append("No orders available.");
@@ -72,6 +79,12 @@ public class SalesReport {
         }
         return sb.toString();
     }
+
+
+    public String getGeneratedReport() {
+        return generatedReport;
+    }
+
     public void saveReportToFile(String filePath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             writer.write(generatedReport);

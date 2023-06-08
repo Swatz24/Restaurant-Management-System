@@ -1,0 +1,29 @@
+-----------------------------
+ Daily Sales Report 
+ 2023-06-08 09:01:45
+-----------------------------
+Total Revenue: $33.00
+
+Most Popular Items: 
+
+Tables Sales: 
+
+Detailed Orders: 
+Order ID: 1
+Table ID: 4
+Status: waiting
+Items:
+- Soda (Quantity: 2)
+- Donut (Quantity: 3)
+Total Price: 13.0
+Total Prep Time: 0
+
+Order ID: 2
+Table ID: 5
+Status: waiting
+Items:
+- Fries (Quantity: 1)
+- Chicken Fingers (Quantity: 3)
+Total Price: 20.0
+Total Prep Time: 0
+
