@@ -106,7 +106,7 @@ public class InventoryService {
 
     // Load the inventory from a file
     private void loadInventory() {
-        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\CTAC\\RestaurantMgmtSystem\\untitled\\src\\main\\java\\example\\inventory.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(inventoryFilePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");

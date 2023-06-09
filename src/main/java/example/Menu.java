@@ -24,7 +24,7 @@ public class Menu {
 
     public Menu() {
         this.scanner = new Scanner(System.in);
-        this.MENU_FILE = "C:\\CTAC\\RestaurantMgmtSystem\\untitled\\src\\main\\java\\example\\menu.txt";
+        this.MENU_FILE = "src/main/java/example/menu.txt";
     }
 
     public List<MenuItem> loadMenu() {
@@ -55,7 +55,7 @@ public class Menu {
             BufferedWriter writer = new BufferedWriter(new FileWriter(this.MENU_FILE));
 
             for(int i = 0; i < menuItems.size(); ++i) {
-                MenuItem menuItem = (MenuItem)menuItems.get(i);
+                MenuItem menuItem = menuItems.get(i);
                 String line =  menuItem.toStringWithDelimiters();
                 writer.write(line);
                 writer.newLine();
@@ -94,7 +94,7 @@ public class Menu {
         Iterator<MenuItem> iterator = menuItems.iterator();
 
         while(iterator.hasNext()) {
-            MenuItem menuItem = (MenuItem)iterator.next();
+            MenuItem menuItem = iterator.next();
             if (menuItem.getName().equalsIgnoreCase(itemName)) {
                 iterator.remove();
                 found = true;

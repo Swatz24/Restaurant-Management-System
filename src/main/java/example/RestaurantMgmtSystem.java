@@ -7,12 +7,13 @@ import java.util.Scanner;
 
 public class RestaurantMgmtSystem {
     public static void main(String[] args) {
+        String inventoryFilePath = "src/main/java/example/inventory.txt";
         System.out.println("Welcome to the restaurant!!");
         Scanner scanner = new Scanner(System.in);
         boolean exitProgram = false;
 
         // Create object for InventoryService class and define the filePath where you want the file to be saved.
-        InventoryService inventoryService = new InventoryService("C:\\CTAC\\RestaurantMgmtSystem\\untitled\\src\\main\\java\\example\\inventory.txt");
+        InventoryService inventoryService = new InventoryService(inventoryFilePath);
         // MenuService
         Menu menuService = new Menu();
         menuService.loadMenu();
