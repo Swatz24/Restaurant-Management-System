@@ -1,44 +1,34 @@
 -----------------------------
 Daily Sales Report
-Date: 2023-06-09 08:54:43
+Date: 2023-06-09 09:31:00
 -----------------------------
-Total Revenue: $23.00
+Total Revenue: $79.00
 
 Most Popular Items: 
-1. Water: 2 orders
-2. Donut: 1 orders
+1. Fries: 11 orders
+2. Icecream: 10 orders
 3. Onion rings: 1 orders
-4. Chicken Fingers: 1 orders
-5. Coffee: 1 orders
 
 Tables Sales: 
-1. Table 1: $15.00
-2. Table 2: $8.00
+1. Table 4: $70.00
+2. Table 2: $9.00
 
 Detailed Orders: 
 Order ID: 1
-Table ID: 1
+Table ID: 4
 Status: preparing
 Items:
-- Coffee (Quantity: 1)
-Total Price: 5.0
-Total Prep Time: 3
+- Icecream (Quantity: 10)
+- Fries (Quantity: 10)
+Total Price: 70.0
+Total Prep Time: 230
 
 Order ID: 2
-Table ID: 1
-Status: preparing
-Items:
-- Onion rings (Quantity: 1)
-- Donut (Quantity: 1)
-Total Price: 10.0
-Total Prep Time: 15
-
-Order ID: 3
 Table ID: 2
 Status: preparing
 Items:
-- Chicken Fingers (Quantity: 1)
-- Water (Quantity: 2)
-Total Price: 8.0
-Total Prep Time: 12
+- Onion rings (Quantity: 1)
+- Fries (Quantity: 1)
+Total Price: 9.0
+Total Prep Time: 13
 

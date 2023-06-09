@@ -74,14 +74,46 @@ public class Menu {
         String name = this.scanner.nextLine();
         System.out.print("Description: ");
         String description = this.scanner.nextLine();
-        System.out.print("Preparation Time: ");
-        int prepTime = Integer.parseInt(this.scanner.nextLine());
-        System.out.print("Price: ");
-        double price = this.scanner.nextDouble();
-        this.scanner.nextLine();
+
+        if (name.isEmpty() || description.isEmpty()) {
+            System.out.println("Invalid input");
+            return; // Skip adding the menu item
+        }
+
+        int prepTime;
+        try {
+            System.out.print("Preparation Time: ");
+            prepTime = Integer.parseInt(this.scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input for preparation time. Please enter a valid integer.");
+            return;
+        }
+
+        double price;
+        try {
+            System.out.print("Price: ");
+            price = Double.parseDouble(this.scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input for price. Please enter a valid number.");
+            return;
+        }
+
         System.out.print("Ingredients (comma-separated): ");
         String ingredientsString = this.scanner.nextLine();
+
+        if (ingredientsString.isEmpty()) {
+            System.out.println("Invalid input.");
+            return;
+        }
+
+        // Check if any input is empty
+        if (name.isEmpty() || description.isEmpty() || ingredientsString.isEmpty()) {
+            System.out.println("Invalid input. All fields must be provided.");
+            return; // Skip adding the menu item
+        }
+
         List<String> ingredients = Arrays.asList(ingredientsString.split(","));
+
         MenuItem menuItem = new MenuItem(name, description, prepTime, price, ingredients);
         menuItems.add(menuItem);
         System.out.println("Menu item added successfully!");

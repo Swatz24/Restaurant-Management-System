@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class RestaurantMgmtSystem {
     public static void main(String[] args) {
         String inventoryFilePath = "src/main/java/example/inventory.txt";
-        System.out.println("Welcome to the restaurant!!");
+        System.out.println("\033[0;35mWelcome to the restaurant!!\033[0m");
         Scanner scanner = new Scanner(System.in);
         boolean exitProgram = false;
 
@@ -17,6 +17,7 @@ public class RestaurantMgmtSystem {
         // MenuService
         Menu menuService = new Menu();
         menuService.loadMenu();
+        // Create a object for ObjectService class and pass menuService and inventoryService as it's parameters.
         OrderService orderService = new OrderService(menuService, inventoryService);
 
         // Table Manager
@@ -59,50 +60,46 @@ public class RestaurantMgmtSystem {
         // Create a UserService object with the employee and password lists
         UserService userService = new UserService(employee, password);
         while (!exitProgram) {
-            System.out.println("\n*** HELLO, PLEASE SIGN IN ***\n");
+            System.out.println("\033[0;36m\n*** HELLO, PLEASE SIGN IN ***\n\033[0m");
 
             boolean loggedIn = false;
             String username = "";
             String pw = "";
             while (!loggedIn) {
-                System.out.println("Enter your name: ");
+                System.out.println("\033[0;33mEnter your name: \033[0m");
                 username = scanner.nextLine();
-                System.out.println("Enter your password: ");
+                System.out.println("\033[0;33mEnter your password: \033[0m ");
                 pw = scanner.nextLine();
                 loggedIn = userService.login(username, pw);
 
                 if (!loggedIn) {
-                    System.out.println("Invalid username or password. Please try again.");
+                    System.out.println("\033[0;31mInvalid username or password. Please try again. \033[0m");
                 }
             }
 
             // Authentication
             UserAuthentication userAuth = new UserAuthentication();
             String role = userAuth.authenticateUser(username, employee, password, pw);
-            System.out.println(pw);
-//        System.out.println("Role: " + role);
-        System.out.println("pwd" + pw);
             if (role != null) {
 
                 if (role.equalsIgnoreCase("MANAGER")) {
                     // Manager menu options
-                    System.out.println("Welcome, Manager!");
+                    System.out.println("\033[0;34mWelcome, Manager!\033[0m\n");
 //                    Menu menuService = new Menu();
                     menuService.loadMenu();
 
                     int choice;
                     do {
-                        System.out.println("Manager Menu:");
-                        System.out.println("1. View Menu");
-                        System.out.println("2. Add Menu Item");
-                        System.out.println("3. Remove Menu Item");
-                        System.out.println("4. Edit Menu Item");
-                        System.out.println("5. Generate Sales Report");
-                        System.out.println("6. Check Inventory Status");
-                        System.out.println("7. Add inventory ");
-                        System.out.println("8. Logoff ");
-                        System.out.println("0. Exit");
-                        System.out.print("Enter your choice: ");
+                        System.out.println("\033[0;95mManager Menu:\033[0m");
+                        System.out.println("\033[0;33m1.\033[0m View \033[0;33mMenu\033[0m");
+                        System.out.println("\033[0;33m2.\033[0m Add \033[0;33mMenu Item\033[0m");
+                        System.out.println("\033[0;34m3. Remove Menu Item\033[0m");
+                        System.out.println("\033[0;33m4.\033[0m Edit \033[0;33mMenu Item\033[0m");
+                        System.out.println("\033[0;33m5.\033[0m Generate Sales \033[0;33mReport\033[0m");
+                        System.out.println("\033[0;33m6.\033[0m Check \033[0;33mInventory Status\033[0m");
+                        System.out.println("\033[0;33m7. Add inventory\033[0m");
+                        System.out.println("\033[1;93m8. Logoff\033[0m ");
+                        System.out.println("\033[0;34m0. Exit\033[0m");
                         choice = scanner.nextInt();
                         scanner.nextLine(); // Consume the newline character
 
@@ -118,9 +115,9 @@ public class RestaurantMgmtSystem {
                                 System.out.println("Enter 'Y' for yes or 'N' for no:");
 
                                     if(scanner.nextLine().equalsIgnoreCase("y")){
-                                        System.out.println("Please enter the ingredient name to be added: ");
+                                        System.out.println("Please enter the \033[0;35mingredient name\033[0m to be added: ");
                                         String name = scanner.nextLine();
-                                        System.out.println("Please enter the number of units you are adding: ");
+                                        System.out.println("Please enter the \033[0;35mnumber of units\033[0m you are adding: ");
                                         int quantity = Integer.parseInt(scanner.nextLine());
                                         inventoryService.addIngredient(name, quantity);
                                         break;
@@ -166,29 +163,29 @@ public class RestaurantMgmtSystem {
                                 System.out.println("Exiting...");
                                 break;
                             default:
-                                System.out.println("Invalid choice. Please try again.");
+                                System.out.println("\033[0;31m. Invalid choice. Please try again. \033[0m");
                         }
                     } while (loggedIn && !exitProgram && choice != 0 && choice != 8);
 
                     //menuService.saveMenuItems();
                 } else if (role.equalsIgnoreCase("STAFF")) {
                     // Staff menu options
-                    System.out.println("Welcome, Staff!");
+                    System.out.println("\033[0;34mWelcome, Staff!\033[0m");
 
 
                     int choice;
                     do {
-                        System.out.println("Staff Menu:");
+                        System.out.println("\033[1;95mStaff Menu:\033[0m");
 
-                        System.out.println("1. Take Order");
-                        System.out.println("2. Assign Table");
-                        System.out.println("3. Reserve Table");
-                        System.out.println("4. Release Table");
-                        System.out.println("5. Display all Tables");
-                        System.out.println("6. Display the orders");
-                        System.out.println("7. Log Out");
-                        System.out.println("0. Exit");
-                        System.out.print("Enter your choice: ");
+                        System.out.println("\033[0;33m1. Take Order\033[0m");
+                        System.out.println("\033[0;33m2. Assign Table\033[0m");
+                        System.out.println("\033[0;33m3. Reserve Table\033[0m");
+                        System.out.println("\033[0;33m4. Release Table\033[0m");
+                        System.out.println("\033[0;33m5. Display all Tables\033[0m");
+                        System.out.println("\033[0;33m6. Display the orders\033[0m");
+                        System.out.println("\033[1;93m7. Log Out\033[0m");
+                        System.out.println("\033[1;93m0. Exit\033[0m");
+                        System.out.print("\033[4;32mEnter your choice: \033[0m");
                         choice = scanner.nextInt();
                         scanner.nextLine(); // Consume the newline character
 

@@ -1,4 +1,4 @@
-Chicken Fingers|Tender and juicy.|10|6.0|Chicken tenders,Oil
+Chicken Tenders|Tender and juicy.|10|6.0|Chicken tenders,Oil
 House Salad|Tasty. For the health nut.|8|7.0|Lettuce,Tomato,Cucumber,Ranch
 Chicken Tender Sandwich|Smack yo mama good.|5|7.0|Lettuce,Bread slices,Tomato,Chicken tenders
 Grilled Cheese Sandwich|Cheese and bread. What more could you want?|10|6.0|Bread Slices,Cheese
