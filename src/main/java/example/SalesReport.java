@@ -1,10 +1,7 @@
 package example;
 
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -51,7 +48,8 @@ public class SalesReport {
 
         this.generatedReport = report;
         System.out.println(report);
-        saveReportToFile("C:\\CTAC\\RestaurantMgmtSystem\\untitled\\src\\main\\java\\example\\salesReport.txt");
+        String filePath = "src/main/java/example/salesReport.txt";
+        saveReportToFile(filePath);
     }
 
     
@@ -104,8 +102,17 @@ public class SalesReport {
 
     public void saveReportToFile(String filePath) {
         String reportWithoutEscapeSequences = generatedReport.replaceAll("\u001B\\[[;\\d]*m", "");
-        try (PrintWriter writer = new PrintWriter(filePath)) {
+        try {
+            File file = new File(filePath);
+            File parentDir = file.getParentFile();
+            if (parentDir != null && !parentDir.exists()) {
+                parentDir.mkdir();
+            }
+
+            FileWriter writer = new FileWriter(file);
             writer.write(reportWithoutEscapeSequences);
+            writer.close();
+
             System.out.println("Sales report saved successfully.");
         } catch (IOException e) {
             System.out.println("Failed to save sales report: " + e.getMessage());

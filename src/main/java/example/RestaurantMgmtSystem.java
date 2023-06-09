@@ -143,7 +143,6 @@ public class RestaurantMgmtSystem {
 
                                 // Save the sales report to a file
                                 String report = salesReport.getGeneratedReport();
-//                                salesReport.saveReportToFile("C:\\CTAC\\RestaurantMgmtSystem\\untitled\\src\\main\\java\\example\\salesReport.txt");
                               break;
 
                             case 6:
