@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class RestaurantMgmtSystem {
     public static void main(String[] args) {
+        System.out.println("Welcome to the restaurant!!");
         Scanner scanner = new Scanner(System.in);
         boolean exitProgram = false;
 
@@ -112,6 +113,18 @@ public class RestaurantMgmtSystem {
                             case 2:
                                 menuService.addItem();
                                 menuService.saveMenu();
+                                System.out.println("Would you like to add any ingredients to the inventory list for this menu item?");
+                                System.out.println("Enter 'Y' for yes or 'N' for no:");
+
+                                    if(scanner.nextLine().equalsIgnoreCase("y")){
+                                        System.out.println("Please enter the ingredient name to be added: ");
+                                        String name = scanner.nextLine();
+                                        System.out.println("Please enter the number of units you are adding: ");
+                                        int quantity = Integer.parseInt(scanner.nextLine());
+                                        inventoryService.addIngredient(name, quantity);
+                                        break;
+                                    }
+
                                 break;
                             case 3:
                                 menuService.removeItem();

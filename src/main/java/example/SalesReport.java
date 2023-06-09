@@ -12,8 +12,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-//private static final String ANSI_RESET = "\u001B[0m"
+import java.util.regex.Pattern;
 
 
 public class SalesReport {
@@ -25,22 +24,31 @@ public class SalesReport {
         this.orderList = orderList;
     }
 
+    // For text colors
+    private static final String ANSI_RESET = "\u001B[0m";
+    private static final String ANSI_YELLOW = "\u001B[33m";
+    private static final String ANSI_CYAN = "\u001B[36m";
+    private static final String ANSI_GREEN = "\u001B[32m";
+    private static final String ANSI_RED = "\u001B[31m";
+
     public void generateDailySalesReport(OrderService orderService) {
         LocalDateTime current = LocalDateTime.now();
 
         Map<String, Integer> popularItems = orderService.getPopularItemsSorted();
         Map<Integer, Double> tableRevenue = orderService.getTableRevenueSorted();
 
-        String report = "-----------------------------\n" +
-                "Daily Sales Report \n " +
-                "Date: " + dateTimeFormatter.format(current) + "\n-----------------------------\n" +
-                "Total Revenue: $" + decimalFormatter.format(calculateTotalRevenue()) + "\n\n" +
-                "Most Popular Items: \n" +
-                popularItemsToString(popularItems) + "\n" +
-                "Tables Sales: \n" +
-                tableRevenueToString(tableRevenue) + "\n" +
-                "Detailed Orders: \n" +
+        String report = ANSI_GREEN + "-----------------------------\n" +ANSI_RESET + ANSI_YELLOW +
+                "Daily Sales Report" + ANSI_RESET + "\n" +
+                "Date: " + dateTimeFormatter.format(current) + ANSI_GREEN +  "\n-----------------------------\n" + ANSI_RESET + ANSI_YELLOW +
+                "Total Revenue: $" + decimalFormatter.format(calculateTotalRevenue()) + ANSI_RESET + "\n\n" + ANSI_CYAN +
+                "Most Popular Items: \n" + ANSI_RESET +
+                popularItemsToString(popularItems) + "\n" + ANSI_CYAN +
+                "Tables Sales: \n" + ANSI_RESET +
+                tableRevenueToString(tableRevenue) + "\n" + ANSI_CYAN +
+                "Detailed Orders: \n" + ANSI_RESET +
                 printOrders(orderList);
+
+
         this.generatedReport = report;
         System.out.println(report);
         saveReportToFile("C:\\CTAC\\RestaurantMgmtSystem\\untitled\\src\\main\\java\\example\\salesReport.txt");
@@ -59,7 +67,7 @@ public class SalesReport {
         StringBuilder sb = new StringBuilder();
         int rank = 1;
         for (Map.Entry<String, Integer> entry : popularItems.entrySet()) {
-            sb.append(rank).append(". ").append(entry.getKey()).append(": ").append(entry.getValue()).append(" orders\n");
+            sb.append(ANSI_YELLOW + rank + ANSI_RESET).append(". ").append(entry.getKey()).append(": ").append(entry.getValue()).append(" orders\n");
             rank++;
         }
         return sb.toString();
@@ -69,7 +77,7 @@ public class SalesReport {
         StringBuilder sb = new StringBuilder();
         int rank = 1;
         for (Map.Entry<Integer, Double> entry : tableRevenue.entrySet()) {
-            sb.append(rank).append(". Table ").append(entry.getKey()).append(": $").append(decimalFormatter.format(entry.getValue())).append("\n");
+            sb.append(ANSI_YELLOW + rank + ANSI_RESET).append(". Table ").append(entry.getKey()).append(": $").append(decimalFormatter.format(entry.getValue())).append("\n");
             rank++;
         }
         return sb.toString();
@@ -92,12 +100,16 @@ public class SalesReport {
         return generatedReport;
     }
 
+
+
     public void saveReportToFile(String filePath) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            writer.write(generatedReport);
+        String reportWithoutEscapeSequences = generatedReport.replaceAll("\u001B\\[[;\\d]*m", "");
+        try (PrintWriter writer = new PrintWriter(filePath)) {
+            writer.write(reportWithoutEscapeSequences);
             System.out.println("Sales report saved successfully.");
         } catch (IOException e) {
             System.out.println("Failed to save sales report: " + e.getMessage());
         }
     }
+
 }

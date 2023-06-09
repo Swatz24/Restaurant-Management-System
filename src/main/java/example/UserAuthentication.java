@@ -1,5 +1,4 @@
 package example;
-
 import java.util.List;
 
 public class UserAuthentication {
@@ -21,9 +20,5 @@ public class UserAuthentication {
             }
         }
         return "unknown";
-
     }
 }
-
-
-

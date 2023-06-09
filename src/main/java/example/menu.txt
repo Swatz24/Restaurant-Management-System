@@ -8,3 +8,4 @@ Soda|Fizzy|1|2.0|Coke
 Donut|Sweet and Round|10|3.0|Flour,Butter,Sugar
 Icecream|Cold and Sweet|15|5.0|Milk,Sugar
 Coffee|Hot coffee|3|5.0|Coffee,Milk,Sugar
+Onion rings|Crispy and golden|5|7.0|onions,oil

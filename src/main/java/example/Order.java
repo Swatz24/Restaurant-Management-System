@@ -11,6 +11,12 @@ public class Order {
     private String status;
     private int totalPrepTime;
     private Timer timer;
+    private static final String ANSI_RESET = "\u001B[0m";
+    private static final String ANSI_YELLOW = "\u001B[33m";
+    private static final String ANSI_CYAN = "\u001B[36m";
+    private static final String ANSI_GREEN = "\u001B[32m";
+    private static final String ANSI_RED = "\u001B[31m";
+
     private static Map<Integer, Double> tableRevenue = new HashMap<>();
 
     private static int nextOrderId = 1; // Static field to generate unique order IDs
@@ -106,13 +112,13 @@ public class Order {
         StringBuilder builder = new StringBuilder();
         builder.append("Order ID: ").append(orderId).append("\n");
         builder.append("Table ID: ").append(tableId).append("\n");
-        builder.append("Status: ").append(status).append("\n");
+        builder.append(ANSI_GREEN + "Status: ").append(status).append("\n" + ANSI_RESET);
         builder.append("Items:\n");
         for (OrderItem item : items) {
             builder.append("- ").append(item.getName()).append(" (Quantity: ").append(item.getQuantity()).append(")\n");
         }
-        builder.append("Total Price: ").append(totalPrice).append("\n");
-        builder.append("Total Prep Time: ").append(totalPrepTime).append("\n");
+        builder.append(ANSI_CYAN + "Total Price: ").append(totalPrice).append("\n" + ANSI_RESET);
+        builder.append(ANSI_CYAN + "Total Prep Time: ").append(totalPrepTime).append("\n" + ANSI_RESET);
         return builder.toString();
     }
 }

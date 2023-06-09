@@ -10,6 +10,13 @@ public class InventoryService {
 
     private Map<String, Integer> ingredients;
 
+    // For text colors
+    private static final String ANSI_RESET = "\u001B[0m";
+    private static final String ANSI_YELLOW = "\u001B[33m";
+    private static final String ANSI_CYAN = "\u001B[36m";
+    private static final String ANSI_GREEN = "\u001B[32m";
+    private static final String ANSI_RED = "\u001B[31m";
+
     public InventoryService() {
         ingredients = new HashMap<>();
     }
@@ -30,6 +37,7 @@ public class InventoryService {
             inventory.put(name, new InventoryItem(name, quantity));
         }
         saveInventory(); // Save inventory to file after modification
+        System.out.println(quantity +" units of " + name + " added to the inventory list.");
     }
 
     //changes by Chitra for testing
@@ -52,10 +60,10 @@ public class InventoryService {
             if (currentQuantity >= quantity) {
                 item.setQuantity(currentQuantity - quantity);
             } else {
-                System.out.println("Insufficient quantity of " + name);
+                System.out.println(ANSI_RED + "Insufficient quantity of " + name + ANSI_RESET);
             }
         } else {
-            System.out.println("Ingredient " + name + " not found");
+            System.out.println(ANSI_RED + "Ingredient " + name + " not found" + ANSI_RESET);
         }
 
         saveInventory(); // Save inventory to file after modification
@@ -70,7 +78,7 @@ public class InventoryService {
             int quantity = item.getQuantity();
             System.out.println("Available quantity of " + name + ": " + quantity);
         } else {
-            System.out.println("Ingredient " + name + " not found");
+            System.out.println(ANSI_RED + "Ingredient " + name + " not found" + ANSI_RESET);
         }
     }
 
@@ -128,14 +136,29 @@ public class InventoryService {
     }
 
 
+    // Ingredient alert for all ingredient, also case-insensitive when checking the ingredient in the inventory list.
     public void checkIngredientAlert() {
 //        System.out.println("Ingredient Alert:");
         inventory.forEach((name, item) -> {
             if (item.getQuantity() < 5) {
-                System.out.println("Low quantity of " + name + ": " + item.getQuantity());
+                System.out.println(ANSI_RED + "Low quantity of " + name + ": " + item.getQuantity()+ ANSI_RESET);
             }
         });
     }
+
+    // Ingredient alert for a given ingredient, also case-insensitive when checking the ingredient in the inventory list.
+    public void checkIngredientAlert(String ingredient) {
+        for (Map.Entry<String, InventoryItem> entry : inventory.entrySet()) {
+            String itemName = entry.getKey();
+            InventoryItem item = entry.getValue();
+
+            if (itemName.equalsIgnoreCase(ingredient) && item.getQuantity() < 5) {
+                System.out.println(ANSI_RED + "Low quantity of " + itemName + ": " + item.getQuantity() + " units." + ANSI_RESET);
+                break;
+            }
+        }
+    }
+
 
 
 

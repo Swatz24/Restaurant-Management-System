@@ -71,6 +71,7 @@ public class OrderService {
                             allIngredientsAvailable = false;
                             break;
                         }
+
                     }
 
                     if (allIngredientsAvailable) {
@@ -94,7 +95,9 @@ public class OrderService {
                         // Update the inventory
                         for (String ingredient : ingredientsNeeded) {
                             inventoryService.useIngredient(ingredient, quantity);
-                            inventoryService.checkIngredientAlert();
+                            inventoryService.checkIngredientAlert(ingredient);
+
+
                         }
                     } else {
                         System.out.println("Insufficient ingredients to prepare the item.");
